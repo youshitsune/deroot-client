@@ -2,8 +2,9 @@ import threading
 import socket
 import os
 
+target_host = input("URL(for now just IP): ")
+
 HEADER = 64
-target_host = "127.0.0.1"
 target_port = 5050
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
