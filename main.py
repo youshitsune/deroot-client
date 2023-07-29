@@ -1,19 +1,26 @@
 import threading
 import socket
 import os
+import ssl
 
-target_host = input("URL(for now just IP): ")
+target_host = input("Hostname: ")
 
 HEADER = 64
 target_port = 5050
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((target_host, target_port))
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect((target_host, target_port))
+
+context=ssl.create_default_context()
+context.check_hostname = False
+context.verify_mode = ssl.CERT_NONE
+client = context.wrap_socket(sock, server_hostname=socket.gethostbyname(target_host)) 
 
 client.send(str(len(b"index")).encode()+b' ' * (HEADER - len(str(len(b"index")).encode())))
 client.send(b"index")
 size = client.recv(HEADER).decode()
-index = client.recv(int(size)).decode()
+if size:
+    index = client.recv(int(size)).decode()
 
 def run(client):
     print(index)
