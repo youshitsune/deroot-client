@@ -8,11 +8,6 @@ First, clone this repo.
 ```bash
 git clone https://github.com/youshitsune/deroot-client
 ```
-Then, install needed libraries.
-```bash
-cd deroot-client/
-pip install -r requirements.txt
-```
 
 ## Usage
 Just run a python script.
